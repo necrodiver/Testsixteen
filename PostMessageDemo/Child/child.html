@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Child</title>
+    <script src="../Scripts/jquery-3.1.1.js"></script>
+</head>
+<body>
+    <button id="sendMessage">发送数据</button>
+    <input type="text" id="message" value="默认:不滚犊子！" />
+    <hr />
+    <h4>接收到的数据</h4>
+    <div class="getMessage"></div>
+    <script language="javascript" type="text/javascript">
+        var parentW;
+        function receiveMessage(event) {
+            if (event.origin !== window.location.origin)
+                return;
+            parentW = event;
+            $('.getMessage').append(event.data + '<br />');
+        }
+        window.addEventListener("message", receiveMessage, false);
+        $('#sendMessage').click(function () {
+            parentW.source.postMessage($('#message').val(), window.location.origin);
+        });
+    </script>
+</body>
+</html>
